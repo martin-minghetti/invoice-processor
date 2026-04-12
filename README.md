@@ -69,9 +69,13 @@ Runs ~31 unit tests covering the full pipeline: extraction schema validation, PO
 
 ## Screenshots
 
-| Dashboard | Upload | Review Queue |
-|-----------|--------|--------------|
-| ![Dashboard](public/screenshots/dashboard.png) | ![Upload](public/screenshots/upload.png) | ![Review Queue](public/screenshots/review.png) |
+| Dashboard | Upload |
+|-----------|--------|
+| ![Dashboard](public/screenshots/dashboard.png) | ![Upload](public/screenshots/upload.png) |
+
+| Review Queue | Invoice Detail |
+|--------------|---------------|
+| ![Review Queue](public/screenshots/review.png) | ![Invoice Detail](public/screenshots/detail.png) |
 
 ---
 
