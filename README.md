@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# InvoiceAI
 
-## Getting Started
+> InvoiceAI helps finance teams process invoices automatically without manual data entry — and knows when to ask a human.
 
-First, run the development server:
+A portfolio project demonstrating a production-grade AI document processing pipeline built with Next.js, Claude Vision, and a human-in-the-loop review queue.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Architecture
+
+```
+Upload → Extract (Claude Vision) → Validate (Zod) → Match (PO lookup) → Detect (anomaly rules) → Store (SQLite)
+                                                                                  ↓
+                                                                      auto_approved / flagged
+                                                                                  ↓
+                                                                  Human Review Queue (if flagged)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **5-step pipeline** — upload, extract, validate, match, detect, store in a single request
+- **Claude Vision extraction** — structured data from any invoice format (PDF, image, scan) via a single API call
+- **Zod validation with math checks** — catches extraction errors at the schema boundary, not downstream
+- **Fuzzy PO matching** — tolerant vendor name matching against purchase order records
+- **6 anomaly detection rules** — duplicate detection, amount variance, missing PO, suspicious line items, and more
+- **Human-in-the-loop review queue** — flagged invoices surface in an in-app queue for human approval or rejection
+- **Sample invoices for instant demo** — clone, run, and see the pipeline processing real data in under 30 seconds
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Quick Start
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+git clone https://github.com/martin-minghetti/invoice-processor.git
+cd invoice-processor
+npm install
+cp .env.example .env  # add your ANTHROPIC_API_KEY
+npm run dev
+# Open http://localhost:3000 and click "Try with sample invoices"
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 15 (App Router) |
+| AI | Claude Vision API (Anthropic SDK) |
+| Validation | Zod |
+| Database | SQLite via Drizzle ORM |
+| Testing | Vitest (~31 tests) |
+| Styling | Tailwind CSS v4 |
+| Deploy | Vercel |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Testing
+
+```bash
+npm test
+```
+
+Runs ~31 unit tests covering the full pipeline: extraction schema validation, PO matching logic, anomaly detection rules, database operations, and end-to-end pipeline flow.
+
+---
+
+## Screenshots
+
+<!-- Screenshots will be added after manual testing -->
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE)
