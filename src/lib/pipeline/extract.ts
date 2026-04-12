@@ -3,6 +3,8 @@ import { ExtractionSchema, type Extraction } from "./types";
 
 const SYSTEM_PROMPT = `You are an invoice data extraction system. Extract structured data from the invoice image provided.
 
+IMPORTANT: The image may be rotated, upside down, or sideways. Mentally correct the orientation before reading. Look for text direction, logos, and layout cues to determine the correct reading orientation.
+
 Return ONLY a JSON object with these exact fields:
 {
   "vendor": string or null,
@@ -22,7 +24,8 @@ Rules:
 - Use null for fields you cannot find or read
 - Amounts must be numbers (no currency symbols)
 - Dates must be YYYY-MM-DD format
-- Line item totals should be quantity * unitPrice`;
+- Line item totals should be quantity * unitPrice
+- For currency, detect from context (e.g. "$" in Argentina = ARS, not USD)`;
 
 export async function extractInvoice(
   fileBuffer: Buffer,

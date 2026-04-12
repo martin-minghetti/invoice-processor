@@ -94,9 +94,9 @@ export default function InvoiceDetailPage() {
               <h2 className="text-sm font-medium text-amber-700 mb-3">Anomalies Detected</h2>
               <div className="space-y-2">
                 {anomalies.map((a: any, i: number) => (
-                  <div key={i} className="flex items-start gap-2">
+                  <div key={i} className="flex items-start gap-3">
                     <AnomalyBadge rule={a.rule} severity={a.severity} />
-                    <span className="text-sm text-gray-700">{a.message}</span>
+                    <span className="text-sm text-gray-700 leading-relaxed">{a.message}</span>
                   </div>
                 ))}
               </div>
