@@ -16,7 +16,7 @@ describe("database schema", () => {
       );
       CREATE TABLE invoices (
         id TEXT PRIMARY KEY, file_name TEXT NOT NULL, file_type TEXT NOT NULL,
-        raw_extraction TEXT, vendor TEXT, invoice_number TEXT, date TEXT,
+        file_path TEXT, raw_extraction TEXT, vendor TEXT, invoice_number TEXT, date TEXT,
         due_date TEXT, subtotal REAL, tax REAL, total REAL, currency TEXT,
         po_match_id TEXT REFERENCES purchase_orders(id), match_status TEXT,
         status TEXT NOT NULL DEFAULT 'processing', anomalies TEXT,

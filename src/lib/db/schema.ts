@@ -13,6 +13,7 @@ export const invoices = sqliteTable("invoices", {
   id: text("id").primaryKey(),
   fileName: text("file_name").notNull(),
   fileType: text("file_type").notNull(),
+  filePath: text("file_path"),
   rawExtraction: text("raw_extraction"),
   vendor: text("vendor"),
   invoiceNumber: text("invoice_number"),
