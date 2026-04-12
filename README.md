@@ -8,12 +8,22 @@ A portfolio project demonstrating a production-grade AI document processing pipe
 
 ## Architecture
 
-```
-Upload → Extract (Claude Vision) → Validate (Zod) → Match (PO lookup) → Detect (anomaly rules) → Store (SQLite)
-                                                                                  ↓
-                                                                      auto_approved / flagged
-                                                                                  ↓
-                                                                  Human Review Queue (if flagged)
+```mermaid
+flowchart LR
+    A[📄 Upload] --> B[🤖 Extract\nClaude Vision]
+    B --> C[✅ Validate\nZod Schema]
+    C --> D[🔍 Match\nPO Lookup]
+    D --> E[⚠️ Detect\nAnomaly Rules]
+    E --> F[💾 Store\nSQLite]
+    F --> G{Status?}
+    G -->|No anomalies + PO match| H[Auto Approved]
+    G -->|Anomalies or no match| I[Flagged]
+    I --> J[👤 Human Review Queue]
+    J --> K[Approved / Rejected]
+
+    style H fill:#dcfce7,stroke:#16a34a,color:#000
+    style I fill:#fef3c7,stroke:#d97706,color:#000
+    style K fill:#dbeafe,stroke:#2563eb,color:#000
 ```
 
 ---
