@@ -67,8 +67,19 @@ export default function UploadPage() {
 
   return (
     <div className="space-y-8 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold">Upload Invoice</h1>
+      <div>
+        <h1 className="text-2xl font-bold">Upload Invoice</h1>
+        <p className="text-sm text-gray-500 mt-1">Upload a PDF or image of an invoice. Claude Vision will extract all data and run it through the anomaly detection pipeline.</p>
+      </div>
       <UploadZone onUpload={handleUpload} onProcessSamples={handleProcessSamples} isProcessing={isProcessing} />
+      {!isProcessing && !result && (
+        <div className="rounded-xl border border-gray-200 bg-white p-4 space-y-2">
+          <p className="text-xs font-medium text-gray-500">Supported formats</p>
+          <p className="text-xs text-gray-400">PDF, JPEG, PNG, WebP — any invoice, receipt, or billing document.</p>
+          <p className="text-xs font-medium text-gray-500 pt-2">What happens next</p>
+          <p className="text-xs text-gray-400">The pipeline extracts vendor, amounts, and line items, validates math, matches against purchase orders, and flags anomalies. Clean invoices are auto-approved; suspicious ones go to the review queue.</p>
+        </div>
+      )}
       <PipelineProgress currentStep={step} status={step >= 5 ? "done" : "processing"} />
       {error && (
         <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{error}</div>
