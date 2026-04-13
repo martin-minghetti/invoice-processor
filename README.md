@@ -44,7 +44,7 @@ InvoiceAI runs a 5-step pipeline that extracts, validates, matches, and flags in
 ## Architecture
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Upload] --> B[Extract\nClaude Vision]
     B --> C[Validate\nZod Schema]
     C --> D[Match\nPO Lookup]
